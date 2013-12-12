@@ -6,4 +6,9 @@ Date: 2013-12-11
 Author: Wush Wu
 Maintainer: Wush Wu <wush@bridgewell.com>
 Description: Simple Interface for aws cli
+Depends:
+    tools,
+    rjson,
+    Rcpp
 License: GPL (>= 3)
+LinkingTo: Rcpp
