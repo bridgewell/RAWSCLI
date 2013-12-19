@@ -24,7 +24,11 @@ s3api_put_object <- function(bucket, key, path, class = c("STANDARD", "REDUCED_R
   class <- switch(class[1], "STANDARD" = "", "REDUCED_REDUNDANCY" = "--storage-class REDUCED_REDUNDANCY")
   cmd <- sprintf("aws s3api put-object --bucket %s --key %s --body %s %s %s", bucket, key, path, md5base64, class)
   retval <- system_collapse(cmd)
-  if (check_md5) stopifnot(retval$ETag == sprintf('"%s"', md5))
+  if (check_md5) {
+    if (retval$ETag != sprintf('"%s"', md5)) {
+      stop(sprintf("ETag(%s) and md5(\"%s\") mismatch", retval$ETag, md5))
+    }
+  }
   invisible(retval)
 }
 
