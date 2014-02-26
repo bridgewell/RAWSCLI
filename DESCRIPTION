@@ -1,7 +1,7 @@
 Package: RAWSCLI
 Type: Package
 Title: Simple Interface for aws cli
-Version: 0.1.2
+Version: 0.1.3
 Date: 2013-12-11
 Author: Wush Wu
 Maintainer: Wush Wu <wush@bridgewell.com>
