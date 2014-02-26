@@ -3,8 +3,17 @@ get_spot_request_id <- function(request) {
 }
 
 get_spot_request_status <- function(spot_request) {
-  cat(spot_request$SpotInstanceRequests[[1]]$Status$Message);cat("\n")
-  sapply(spot_request$SpotInstanceRequests, function(a) a$Status$Code)
+  
+  cat(spot_request$SpotInstanceRequests[[1]]$Status%[%"Message")
+#   if (is.list(spot_request$SpotInstanceRequests[[1]]$Status)) {
+#   } else {
+#     cat(spot_request$SpotInstanceRequests[[1]]$Status['Message'])
+#   }
+  cat("\n")
+  sapply(spot_request$SpotInstanceRequests, function(a) {
+#     if (is.list(a$Status) a$Status$Code else a$Status["Code"]
+    a$Status%[%"Code"
+  })
 }
 
 get_instance_id <- function(spot_request) {

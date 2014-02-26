@@ -2,6 +2,7 @@ wait_spot_request <- function(id) {
   while(!all((status <- get_spot_request_status(spot_request <- ec2_describe_spot_instance_requests(id))) == "fulfilled")) {
     if ("capacity-oversubscribed" %in% status) stop(paste(status, collapse=","))
     if ("cancelled" %in% status) stop(paste(status, collapse=","))
+    if ("price-too-low" %in% status) stop(paste(status, collapse=","))
     Sys.sleep(10)
   }
   get_instance_id(spot_request)
@@ -22,4 +23,8 @@ gen_instance_spec <- function(key_name, instance_type, security_group_ids, image
     SecurityGroupIds = security_group_ids,
     ImageId = image_id
     )
+}
+
+`%[%` <- function(x, key) {
+  if (is.list(x)) x[[key]] else x[key]
 }
