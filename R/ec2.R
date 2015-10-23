@@ -42,3 +42,18 @@ ec2_terminate_instances <- function(instance_ids, dry_run = FALSE) {
   retval <- system_collapse(cmd)
   stopifnot(sapply(retval$TerminatingInstances, function(a) a$CurrentState$Name) == "shutting-down")
 }
+
+ec2_create_image <- function(instance_id, name, dry_run = FALSE) {
+  dry_run <- get_dry_run(dry_run)
+  instance_id <- get_or_empty(instance_id, "--instance-id")
+  name <- get_or_empty(name, "--name")
+  cmd <- sprintf("aws ec2 create-image %s %s %s", dry_run, instance_id, name)
+  retval <- system_collapse(cmd)
+  retval
+}
+
+ec2_describe_images <- function() {
+  cmd <- sprintf("aws ec2 describe-images --owners self")
+  retval <- system_collapse(cmd)
+  retval
+}
