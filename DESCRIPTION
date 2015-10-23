@@ -4,6 +4,7 @@ Title: Simple Interface for aws cli
 Version: 0.1.4
 Date: 2013-12-11
 Author: Wush Wu
+Copyright: Bridgewell Inc.
 Maintainer: Wush Wu <wush@bridgewell.com>
 Description: Simple Interface for aws cli
 Depends:
